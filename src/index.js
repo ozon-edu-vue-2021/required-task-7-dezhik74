@@ -2,7 +2,10 @@
 
 import css from "./css/style.css"
 
-import {matrixData, best} from "./store/store"
+import {getMatrix, getTheBest, getUserThreeFriendsHTML} from "./store/store"
+
+const matrixData = getMatrix()
+const best = getTheBest()
 
 // console.log("matrix ", matrixData)
 // console.log("best ", best)
@@ -15,7 +18,7 @@ let backButton = null
 
 function showUser (user, best) {
   // вот здесь режутся друзья и враги до 3 элементов
-  const followers = user.followers.slice(0, 3).map(itm => {
+  const friends = user.friends.slice(0, 3).map(itm => {
     return `<li><i class="fa fa-male"></i><span >${matrixData[itm].name}</span></li>`
   }).join(' ')
   const enemyes = user.enemyes.slice(0, 3).map(itm => {
@@ -32,8 +35,8 @@ function showUser (user, best) {
         <div class="user-name">${user.name}</div>
       </div>
       <ul>
-        <li class="people-title">Фоловеры</li>
-        ${followers}
+        <li class="people-title">Друзья</li>
+        ${friends}
         <li class="people-title">Не в друзьях</li>
         ${enemyes}
         <li class="people-title">Популярные люди</li>
@@ -47,15 +50,9 @@ function showUser (user, best) {
   const elem = document.createElement('div')
   elem.innerHTML = userHTML
   userComponent.append(elem)
-  //стилизуем дополнительно
-  const arrayOfLi = userComponent.getElementsByTagName("li")
-  for (let idx = 0; idx < arrayOfLi.length; idx++) {
-    arrayOfLi[idx].style.transform = `translate3d(0, ${30 + idx * 5}px, 0)`
-    arrayOfLi[idx].style.WebkitTransform = `translate3d(0, ${30 + idx * 5}px, 0)`
-  }
   //настраиваем кнопку
   backButton = userComponent.querySelector(".back")
-  backButton.addEventListener("click", showClassList)
+  backButton.addEventListener("click", showContactList)
 }
 
 function createContactListItem (user, idx) {
@@ -70,10 +67,10 @@ function createContactList (){
   matrixData.forEach((item, idx) => {createContactListItem(item, idx)})
 }
 
-function showClassList() {
+function showContactList() {
   userComponent.innerHTML=""
   listView.classList.remove("hidden")
-  backButton.removeEventListener("click", showClassList)
+  backButton.removeEventListener("click", showContactList)
   
 }
 

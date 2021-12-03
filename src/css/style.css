@@ -82,6 +82,7 @@ body {
   background: url("../i/background-active.jpg");
   display: flex;
   align-items: center;
+  margin-bottom: 24px;
 }
 
 .back {

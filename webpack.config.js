@@ -17,6 +17,7 @@ module.exports = {
       title: 'Тестовое задание',
       template: path.resolve(__dirname, './src/index.html'), // шаблон
       filename: 'index.html', // название выходного файла
+      favicon: "./src/i/favicon.ico"
   }),
     new webpack.HotModuleReplacementPlugin(),
   ],
